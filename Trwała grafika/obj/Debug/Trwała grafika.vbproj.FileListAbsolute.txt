@@ -28,3 +28,13 @@ Z:\3.Research_Development\VB-Net-nauka\vb net 24h\Trwała grafika\Trwała grafik
 Z:\3.Research_Development\VB-Net-nauka\vb net 24h\Trwała grafika\Trwała grafika\obj\Debug\Trwała grafika.pdb
 Z:\3.Research_Development\VB-Net-nauka\vb net 24h\Trwała grafika\Trwała grafika\bin\Debug\Trwała grafika.pdb
 Z:\3.Research_Development\VB-Net-nauka\vb net 24h\Trwała grafika\Trwała grafika\bin\Debug\Trwała grafika.xml
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\bin\Debug\Trwała grafika.exe.config
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\obj\Debug\Trwała grafika.exe
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\obj\Debug\Trwała grafika.xml
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\obj\Debug\Trwała grafika.pdb
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\obj\Debug\Trwała_grafika.FormularzGłówny.resources
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\obj\Debug\Trwała_grafika.Resources.resources
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\obj\Debug\Trwała grafika.vbproj.GenerateResource.Cache
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\bin\Debug\Trwała grafika.exe
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\bin\Debug\Trwała grafika.pdb
+Z:\1.Projekty\2.termometr.pl mapa polski pogoda 24h\2.Firmware\pogoda_polska_mapka\Trwała grafika\bin\Debug\Trwała grafika.xml

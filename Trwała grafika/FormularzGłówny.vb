@@ -1,35 +1,16 @@
-﻿'#####################################################################################################################
-'oblusga grafiki w formie: ver.1 - BMP z pamieci kopiowana do picturebox na formie bez użycia graphics
-'#####################################################################################################################
-'Public Class FormularzGłówny
-'    ' utworz bitmape w pamieci
-'    Dim BMP As New Bitmap(300, 300, Imaging.PixelFormat.Format24bppRgb)
-
-'    ' na ruch myszka nad picturebox ustaw pixele w BMP i przypisz BMP do PictureBox1
-'    Private Sub PictureBox1_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseMove
-'        Try
-'            BMP.SetPixel(MousePosition.X - Me.Location.X - PictureBox1.Location.X - 18, MousePosition.Y - Me.Location.Y - PictureBox1.Location.Y - 30, Color.White)
-'        Catch ex As Exception
-'        End Try
-'        PictureBox1.Image = BMP
-'    End Sub
-
-'    Private Sub FormularzGłówny_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-'    End Sub
-'End Class
+﻿
 
 '#####################################################################################################################
 'oblusga grafiki w formie: ver.1.1 - BMP z pamieci kopiowana do picturebox na formie bez użycia graphics ale z kanalem alpha
 '#####################################################################################################################
 Public Class FormularzGłówny
     ' utworz bitmape w pamieci
-    Dim main_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
+    Dim main_layer_bmp As New Bitmap(500, 500, Imaging.PixelFormat.Format32bppArgb)
     Dim rain_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
     Dim snow_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
     Dim map_layer_bmp As New Bitmap("polska.jpg")
     Dim flake_layer_bmp As New Bitmap(16, 16, Imaging.PixelFormat.Format32bppArgb)
-
+    Dim flake2_layer_bmp As New Bitmap(128, 128, Imaging.PixelFormat.Format32bppArgb)
 
     Dim BMP As New Bitmap(600, 600, Imaging.PixelFormat.Format32bppArgb)
     Dim BMPS As New Bitmap(600, 600, Imaging.PixelFormat.Format32bppArgb)
@@ -44,7 +25,7 @@ Public Class FormularzGłówny
         Dim kolor As Color
 
         flake_layer_bmp = CType(Image.FromFile("snow_flake.png"), Bitmap)
-
+        flake2_layer_bmp = CType(Image.FromFile("snow_flake2.png"), Bitmap)
 
         ' displayColor = sourceColor×alpha / 255 + backgroundColor×(255 – alpha) / 255 
 
@@ -56,7 +37,7 @@ Public Class FormularzGłówny
 
         ' 1.set back layer with map
         ' map_layer_bmp already set
-        snow_PictureBox.Image = map_layer_bmp
+        snow_PictureBox.Image = flake_layer_bmp
         'map_layer_bmp.MakeTransparent()
 
         ' 2.set up layer with red, a=127
@@ -64,7 +45,7 @@ Public Class FormularzGłówny
         ' kolor = Color.FromArgb(255, 255, 0, 0)
         ' rain_layer_bmp.MakeTransparent()
 
-        Dim alpha As Byte = 255
+        Dim alpha As Byte = 127
         kolor = Color.FromArgb(alpha, 255, 255, 255)
         For x = 0 To 99
             For y = 0 To 99
@@ -80,27 +61,23 @@ Public Class FormularzGłówny
         Dim displayColorGreen As Double
         Dim displayColorBlue As Double
 
-        alpha = 127
+        ' alpha = 20
 
-        For x = 0 To 99
-            For y = 0 To 99
-                alpha = CByte(x * 2.5)
-                backColor = map_layer_bmp.GetPixel(x, y)
-                sourceColor = rain_layer_bmp.GetPixel(x, y)
-
+        For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
+            For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
+                backColor = map_layer_bmp.GetPixel(x + 150, y + 150)
+                sourceColor = flake2_layer_bmp.GetPixel(x, y)
+                alpha = CByte(sourceColor.A / 1.3)
                 displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
                 displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
                 displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
-
                 kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
-
-                main_layer_bmp.SetPixel(x, y, kolor)
+                map_layer_bmp.SetPixel(x + 150, y + 150, kolor)
             Next
         Next
 
-
         ' 4.display main layer in picture box
-        main_PictureBox.Image = main_layer_bmp
+        main_PictureBox.Image = map_layer_bmp
 
         main_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
 
@@ -165,10 +142,10 @@ Public Class FormularzGłówny
         'snow_PictureBox.Image = snow_layer_bmp
         'main_PictureBox.Image = main_layer_bmp
 
-        '' PictureBox2.Parent = PictureBox1
-        'PictureBox2.BackColor = Color.Transparent
+        '' PictureBox1.Parent = PictureBox1
+        'PictureBox1.BackColor = Color.Transparent
 
-        ''Label1.Parent = PictureBox2
+        ''Label1.Parent = PictureBox1
         ''Label1.BackColor = Color.Transparent
 
 
@@ -187,7 +164,7 @@ Public Class FormularzGłówny
 
         '    Next
         'Next i
-        'PictureBox2.Image = BMPT
+        'PictureBox1.Image = BMPT
         ''BMPT.Save("bitmapaaa.png", Imaging.ImageFormat.Png)
 
         'BMPS.MakeTransparent(Color.Gray)
@@ -212,7 +189,7 @@ Public Class FormularzGłówny
         '        BMPS.SetPixel(i, j, colors)
         '    Next
         'Next
-        'PictureBox2.Image = BMPS
+        'PictureBox1.Image = BMPS
 
 
 
@@ -231,13 +208,12 @@ Public Class FormularzGłówny
         '    BMPS.SetPixel(MousePosition.X - Me.Location.X - PictureBox1.Location.X - 18, MousePosition.Y - Me.Location.Y - PictureBox1.Location.Y - 30, color)
         'Catch ex As Exception
         'End Try
-        'PictureBox2.Image = BMPS
+        'PictureBox1.Image = BMPS
     End Sub
 
     Private Sub SaveToFileButton_Click(sender As Object, e As EventArgs) Handles SaveToFileButton.Click
         ' BMP.Save("bitmapa.png", Imaging.ImageFormat.Png)
-        '  Me.PictureBox2.Image.Save("picturebox.png", Imaging.ImageFormat.Png)
-
+        '  Me.PictureBox1.Image.Save("picturebox.png", Imaging.ImageFormat.Png)
 
         'Dim graph As Graphics = Nothing
         'Dim frmleft As System.Drawing.Point = Me.Bounds.Location
@@ -247,88 +223,45 @@ Public Class FormularzGłówny
         'Dim screeny As Integer = frmleft.Y
         'graph.CopyFromScreen(screenx - 0, screeny - 0, 0, 0, img.Size)
         'img.Save("filename.png", System.Drawing.Imaging.ImageFormat.Png)
-        SaveForm()
     End Sub
-
-    Private Sub SaveForm()
-        Static Dim i As Byte
-
-        Dim graph As Graphics = Nothing
-        Dim frmleft As System.Drawing.Point = Me.Bounds.Location
-        Dim img As New Bitmap(Me.Bounds.Width + 0, Me.Bounds.Height + 0)
-        graph = Graphics.FromImage(img)
-        Dim screenx As Integer = frmleft.X
-        Dim screeny As Integer = frmleft.Y
-        graph.CopyFromScreen(screenx - 0, screeny - 0, 0, 0, img.Size)
-        img.Save("form" & i.ToString & ".png", System.Drawing.Imaging.ImageFormat.Png)
-        i = CByte(i + 1)
-    End Sub
-
-
-    '    I've actually figured it out :)
-
-    'i'm using this code:
-
-    '    Dim myGraphic As Graphics = Nothing
-    '    Dim imgBack As Image, imgFore As Image, newImg As Image
-    '        imgBack = pbox.BackgroundImage
-    '        imgFore = pbox.Image
-
-    '        newImg = pbox.BackgroundImage
-
-    '        myGraphic = Graphics.FromImage(newImg)
-    '        myGraphic.DrawImageUnscaled(imgBack , 0, 0)
-    '        myGraphic.DrawImageUnscaled(imgFore , 0, 0)
-    '        myGraphic.Save()
-    '        newImg.Save("c:\abc.bmp")
-
-
-
-    ' http://www.vb-helper.com/howto_net_gradient_alpha_double.html
-    'Private Sub Form1_Load(ByVal sender As System.Object, ByVal _
-    '    e As System.EventArgs) Handles MyBase.Load
-    '    Dim bm_src1 As Bitmap = picSource1.Image.Clone
-    '    Dim bm_src2 As Bitmap = picSource2.Image.Clone
-    '    Dim bm_out As New Bitmap(bm_src1.Width, bm_src1.Height)
-    '    Dim gr As Graphics = Graphics.FromImage(bm_out)
-
-    '    ' Give the images alpha gradients.
-    '    Dim alpha As Integer
-    '    For x As Integer = 0 To bm_src1.Width - 1
-    '        alpha = (255 * x) \ bm_src1.Width
-    '        For y As Integer = 0 To bm_src1.Height - 1
-    '            Dim clr As Color = bm_src1.GetPixel(x, y)
-    '            clr = Color.FromArgb(alpha, clr.R, clr.G, clr.B)
-    '            bm_src1.SetPixel(x, y, clr)
-
-    '            clr = bm_src2.GetPixel(x, y)
-    '            clr = Color.FromArgb(255 - alpha, clr.R, clr.G, _
-    '                clr.B)
-    '            bm_src2.SetPixel(x, y, clr)
-    '        Next y
-    '    Next x
-
-    '    ' Draw the images onto the result.
-    '    gr.DrawImage(bm_src1, 0, 0)
-    '    gr.DrawImage(bm_src2, 0, 0)
-
-    '    ' Display the result.
-    '    picResult.Image = bm_out
-    'End Sub
-
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Static Dim i As Byte
         If i < 30 Then
-            PictureBox2.Left = PictureBox2.Left + 10
-            PictureBox2.Top = PictureBox2.Top + 10
-            i = CByte(i + 1)
-            PictureBox2.Refresh()
-            Me.Refresh()
-            SaveForm()
+            'PictureBox2.Left = PictureBox2.Left + 10
+            'PictureBox2.Top = PictureBox2.Top + 10
+            'i = CByte(i + 1)
+            'PictureBox2.Refresh()
+            'Me.Refresh()
         End If
     End Sub
 End Class
+
+
+
+
+
+
+'#####################################################################################################################
+'oblusga grafiki w formie: ver.1 - BMP z pamieci kopiowana do picturebox na formie bez użycia graphics
+'#####################################################################################################################
+'Public Class FormularzGłówny
+'    ' utworz bitmape w pamieci
+'    Dim BMP As New Bitmap(300, 300, Imaging.PixelFormat.Format24bppRgb)
+
+'    ' na ruch myszka nad picturebox ustaw pixele w BMP i przypisz BMP do PictureBox1
+'    Private Sub PictureBox1_MouseMove(sender As Object, e As MouseEventArgs) Handles PictureBox1.MouseMove
+'        Try
+'            BMP.SetPixel(MousePosition.X - Me.Location.X - PictureBox1.Location.X - 18, MousePosition.Y - Me.Location.Y - PictureBox1.Location.Y - 30, Color.White)
+'        Catch ex As Exception
+'        End Try
+'        PictureBox1.Image = BMP
+'    End Sub
+
+'    Private Sub FormularzGłówny_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+'    End Sub
+'End Class
 
 
 ' #####################################################################################################################
