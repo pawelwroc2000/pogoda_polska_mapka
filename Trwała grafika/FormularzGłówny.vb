@@ -8,10 +8,10 @@ Public Class FormularzGłówny
     Dim main_layer_bmp As New Bitmap(500, 500, Imaging.PixelFormat.Format32bppArgb)
     Dim rain_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
     Dim snow_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
-    Dim map_layer_bmp As New Bitmap("polska.jpg")
+    Dim map_layer_bmp As New Bitmap("polska2.jpg")
     Dim flake_layer_bmp As New Bitmap(16, 16, Imaging.PixelFormat.Format32bppArgb)
     Dim flake2_layer_bmp As New Bitmap(128, 128, Imaging.PixelFormat.Format32bppArgb)
-    Dim drop1_bmp As New Bitmap(420, 420, Imaging.PixelFormat.Format32bppArgb)
+    Dim drop1_bmp As New Bitmap(100, 64, Imaging.PixelFormat.Format32bppArgb)
 
     Dim BMP As New Bitmap(600, 600, Imaging.PixelFormat.Format32bppArgb)
     Dim BMPS As New Bitmap(600, 600, Imaging.PixelFormat.Format32bppArgb)
@@ -27,7 +27,7 @@ Public Class FormularzGłówny
 
         flake_layer_bmp = CType(Image.FromFile("snow_flake.png"), Bitmap)
         flake2_layer_bmp = CType(Image.FromFile("snow_flake2.png"), Bitmap)
-        drop1_bmp = CType(Image.FromFile("drop1.png"), Bitmap)
+        drop1_bmp = CType(Image.FromFile("cloud1.png"), Bitmap)
 
         ' displayColor = sourceColor×alpha / 255 + backgroundColor×(255 – alpha) / 255 
 
@@ -62,7 +62,7 @@ Public Class FormularzGłówny
             'map_layer_bmp.Save("layers" & i.ToString & ".png", System.Drawing.Imaging.ImageFormat.Png)
         Next
 
-        DodajWarstwe(drop1_bmp, 150, 50, 50)
+        DodajWarstwe(flake_layer_bmp, 255, 100, 100)
 
         'DodajWarstwe(50, 150, 150)
         'DodajWarstwe(100, 170, 170)
@@ -71,7 +71,7 @@ Public Class FormularzGłówny
         ' 4.display main layer in picture box
         main_PictureBox.Image = map_layer_bmp
 
-        'map_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
+        map_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
 
         Me.Refresh()
 
