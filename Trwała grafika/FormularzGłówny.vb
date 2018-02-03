@@ -60,19 +60,52 @@ Public Class FormularzGłówny
         Dim displayColorRed As Double
         Dim displayColorGreen As Double
         Dim displayColorBlue As Double
+        Dim przezroczystosc As Double
+
 
         ' alpha = 20
+        przezroczystosc = 50
 
         For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
             For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
                 backColor = map_layer_bmp.GetPixel(x + 150, y + 150)
                 sourceColor = flake2_layer_bmp.GetPixel(x, y)
-                alpha = CByte(sourceColor.A / 1.3)
+                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
                 displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
                 displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
                 displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
                 kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
                 map_layer_bmp.SetPixel(x + 150, y + 150, kolor)
+            Next
+        Next
+
+        przezroczystosc = 100
+
+        For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
+            For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
+                backColor = map_layer_bmp.GetPixel(x + 200, y + 200)
+                sourceColor = flake2_layer_bmp.GetPixel(x, y)
+                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
+                displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
+                displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
+                displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
+                kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
+                map_layer_bmp.SetPixel(x + 200, y + 200, kolor)
+            Next
+        Next
+
+        przezroczystosc = 150
+
+        For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
+            For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
+                backColor = map_layer_bmp.GetPixel(x + 240, y + 240)
+                sourceColor = flake2_layer_bmp.GetPixel(x, y)
+                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
+                displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
+                displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
+                displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
+                kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
+                map_layer_bmp.SetPixel(x + 240, y + 240, kolor)
             Next
         Next
 
