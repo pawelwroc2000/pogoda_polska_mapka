@@ -11,6 +11,7 @@ Public Class FormularzGłówny
     Dim map_layer_bmp As New Bitmap("polska.jpg")
     Dim flake_layer_bmp As New Bitmap(16, 16, Imaging.PixelFormat.Format32bppArgb)
     Dim flake2_layer_bmp As New Bitmap(128, 128, Imaging.PixelFormat.Format32bppArgb)
+    Dim drop1_bmp As New Bitmap(420, 420, Imaging.PixelFormat.Format32bppArgb)
 
     Dim BMP As New Bitmap(600, 600, Imaging.PixelFormat.Format32bppArgb)
     Dim BMPS As New Bitmap(600, 600, Imaging.PixelFormat.Format32bppArgb)
@@ -26,6 +27,7 @@ Public Class FormularzGłówny
 
         flake_layer_bmp = CType(Image.FromFile("snow_flake.png"), Bitmap)
         flake2_layer_bmp = CType(Image.FromFile("snow_flake2.png"), Bitmap)
+        drop1_bmp = CType(Image.FromFile("drop1.png"), Bitmap)
 
         ' displayColor = sourceColor×alpha / 255 + backgroundColor×(255 – alpha) / 255 
 
@@ -55,176 +57,44 @@ Public Class FormularzGłówny
         rain_PictureBox.Image = rain_layer_bmp
 
         ' 3.mix both layer and set main layer
-        Dim sourceColor As Color
-        Dim backColor As Color
-        Dim displayColorRed As Double
-        Dim displayColorGreen As Double
-        Dim displayColorBlue As Double
-        Dim przezroczystosc As Double
-
-
-        ' alpha = 20
-        przezroczystosc = 50
-
-        For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
-            For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
-                backColor = map_layer_bmp.GetPixel(x + 150, y + 150)
-                sourceColor = flake2_layer_bmp.GetPixel(x, y)
-                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
-                displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
-                displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
-                displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
-                kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
-                map_layer_bmp.SetPixel(x + 150, y + 150, kolor)
-            Next
+        For i As Double = 50 To 250 Step 50
+            DodajWarstwe(flake2_layer_bmp, i, CUInt(i), CUInt(i))
+            'map_layer_bmp.Save("layers" & i.ToString & ".png", System.Drawing.Imaging.ImageFormat.Png)
         Next
 
-        przezroczystosc = 100
+        DodajWarstwe(drop1_bmp, 150, 50, 50)
 
-        For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
-            For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
-                backColor = map_layer_bmp.GetPixel(x + 200, y + 200)
-                sourceColor = flake2_layer_bmp.GetPixel(x, y)
-                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
-                displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
-                displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
-                displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
-                kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
-                map_layer_bmp.SetPixel(x + 200, y + 200, kolor)
-            Next
-        Next
-
-        przezroczystosc = 150
-
-        For x = 0 To CByte(flake2_layer_bmp.Size.Height - 1)
-            For y = 0 To CByte(flake2_layer_bmp.Size.Width - 1)
-                backColor = map_layer_bmp.GetPixel(x + 240, y + 240)
-                sourceColor = flake2_layer_bmp.GetPixel(x, y)
-                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
-                displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (backColor.R) * (255 - alpha) / 255
-                displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (backColor.G) * (255 - alpha) / 255
-                displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (backColor.B) * (255 - alpha) / 255
-                kolor = Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue))
-                map_layer_bmp.SetPixel(x + 240, y + 240, kolor)
-            Next
-        Next
+        'DodajWarstwe(50, 150, 150)
+        'DodajWarstwe(100, 170, 170)
+        'DodajWarstwe(150, 190, 190)
 
         ' 4.display main layer in picture box
         main_PictureBox.Image = map_layer_bmp
 
-        main_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
-
-
+        'map_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
 
         Me.Refresh()
 
+    End Sub
 
+    Private Sub DodajWarstwe(ByRef ImageToAdd As Bitmap, ByVal przezroczystosc As Double, ByVal OffsetX As UInteger, ByVal OffsetY As UInteger)
+        Dim alpha As Byte
+        Dim sourceColor As Color
+        Dim displayColorRed As Double
+        Dim displayColorGreen As Double
+        Dim displayColorBlue As Double
 
-        '' set snow layer in memory
-        'kolor = Color.FromArgb(255, 0, 0, 255)
-        'For x = 3 To 9
-        '    For y = 3 To 9
-        '        '  snow_layer_bmp.SetPixel(x, y, kolor)
-        '    Next
-        'Next
-
-        '' set main layer with map
-        'For x = 0 To 50
-        '    For y = 0 To 50
-        '        main_layer_bmp.SetPixel(x, y, map_layer_bmp.GetPixel(x, y))
-        '    Next
-        'Next
-
-
-
-
-
-        ''add rain layers
-        'For x = 0 To 30
-        '    For y = 0 To 30
-        '        kolor = rain_layer_bmp.GetPixel(x, y)
-        '        If kolor.A > 0 Then
-        '            '   main_layer_bmp.SetPixel(x, y, rain_layer_bmp.GetPixel(x, y))
-        '        End If
-        '    Next
-        'Next
-
-        ''add snow layer
-        'For x = 0 To 9
-        '    For y = 0 To 9
-        '        kolor = snow_layer_bmp.GetPixel(x, y)
-        '        If kolor.A > 0 Then
-        '            '    main_layer_bmp.SetPixel(x, y, snow_layer_bmp.GetPixel(x, y))
-        '        End If
-        '    Next
-        'Next
-
-
-        ''add flake layer
-        'For x = 0 To 15
-        '    For y = 0 To 15
-        '        kolor = flake_layer_bmp.GetPixel(x, y)
-        '        If kolor.A > 0 Then
-        '            '   main_layer_bmp.SetPixel(x + 5, y + 5, flake_layer_bmp.GetPixel(x, y))
-        '        End If
-        '    Next
-        'Next
-
-
-        'rain_PictureBox.Image = rain_layer_bmp
-        'snow_PictureBox.Image = snow_layer_bmp
-        'main_PictureBox.Image = main_layer_bmp
-
-        '' PictureBox1.Parent = PictureBox1
-        'PictureBox1.BackColor = Color.Transparent
-
-        ''Label1.Parent = PictureBox1
-        ''Label1.BackColor = Color.Transparent
-
-
-        'Me.Show()
-
-        'BMPT.MakeTransparent()
-        'Dim colors As Color = Drawing.Color.DeepSkyBlue
-
-        'Dim i, j As UInteger
-
-        'For i = 1 To 255
-        '    colors = Color.FromArgb(i, colors.R, colors.G, colors.B)
-        '    For j = 0 To 100 Step 5
-        '        BMPT.SetPixel(j, i, colors)
-        '        BMPT.SetPixel(j + 1, i, colors)
-
-        '    Next
-        'Next i
-        'PictureBox1.Image = BMPT
-        ''BMPT.Save("bitmapaaa.png", Imaging.ImageFormat.Png)
-
-        'BMPS.MakeTransparent(Color.Gray)
-
-        'For i = 0 To 599
-        '    '  colors = Color.FromArgb(i / 2, colors.R, colors.G, colors.B)
-        '    For j = 0 To 599
-
-        '        Dim clr As Color ' = BMPJ.GetPixel(i, j)
-        '        clr = Color.FromArgb(200, clr.R, clr.G, clr.B)
-        '        BMP.SetPixel(i, j, clr)
-
-        '        ' BMP.SetPixel(i, j, colors)
-        '    Next
-        'Next
-        '' PictureBox1.Image = BMP
-
-
-        'For i = 0 To 299
-        '    For j = 0 To 299
-        '        colors = Color.FromArgb(0, colors.R, colors.G, colors.B)
-        '        BMPS.SetPixel(i, j, colors)
-        '    Next
-        'Next
-        'PictureBox1.Image = BMPS
-
-
+        For x = 0 To CInt(ImageToAdd.Size.Height - 1)
+            For y = 0 To CInt(ImageToAdd.Size.Width - 1)
+                BackColor = map_layer_bmp.GetPixel(CInt(x + OffsetX), CInt(y + OffsetY))
+                sourceColor = ImageToAdd.GetPixel(x, y)
+                alpha = CByte((sourceColor.A * przezroczystosc) / 255)
+                displayColorRed = (CInt(sourceColor.R) * alpha / 255) + (BackColor.R) * (255 - alpha) / 255
+                displayColorGreen = (CInt(sourceColor.G) * alpha / 255) + (BackColor.G) * (255 - alpha) / 255
+                displayColorBlue = (CInt(sourceColor.B) * alpha / 255) + (BackColor.B) * (255 - alpha) / 255
+                map_layer_bmp.SetPixel(CInt(x + OffsetX), CInt(y + OffsetY), Color.FromArgb(255, CInt(displayColorRed), CInt(displayColorGreen), CInt(displayColorBlue)))
+            Next
+        Next
 
     End Sub
 
