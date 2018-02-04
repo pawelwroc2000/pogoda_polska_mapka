@@ -50,9 +50,9 @@ Partial Class FormularzGłówny
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.Transparent
         Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox1.Location = New System.Drawing.Point(1046, 430)
+        Me.PictureBox1.Location = New System.Drawing.Point(1063, 319)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(600, 600)
+        Me.PictureBox1.Size = New System.Drawing.Size(350, 331)
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
         '
@@ -95,7 +95,7 @@ Partial Class FormularzGłówny
         'rain_PictureBox
         '
         Me.rain_PictureBox.BackColor = System.Drawing.Color.Transparent
-        Me.rain_PictureBox.Location = New System.Drawing.Point(1046, 155)
+        Me.rain_PictureBox.Location = New System.Drawing.Point(1063, 166)
         Me.rain_PictureBox.Name = "rain_PictureBox"
         Me.rain_PictureBox.Size = New System.Drawing.Size(100, 100)
         Me.rain_PictureBox.TabIndex = 11
@@ -104,7 +104,7 @@ Partial Class FormularzGłówny
         'snow_PictureBox
         '
         Me.snow_PictureBox.BackColor = System.Drawing.Color.Transparent
-        Me.snow_PictureBox.Location = New System.Drawing.Point(1046, 31)
+        Me.snow_PictureBox.Location = New System.Drawing.Point(1063, 12)
         Me.snow_PictureBox.Name = "snow_PictureBox"
         Me.snow_PictureBox.Size = New System.Drawing.Size(100, 100)
         Me.snow_PictureBox.TabIndex = 12
@@ -113,9 +113,10 @@ Partial Class FormularzGłówny
         'main_PictureBox
         '
         Me.main_PictureBox.BackColor = System.Drawing.Color.Transparent
+        Me.main_PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.main_PictureBox.Location = New System.Drawing.Point(24, 12)
         Me.main_PictureBox.Name = "main_PictureBox"
-        Me.main_PictureBox.Size = New System.Drawing.Size(500, 500)
+        Me.main_PictureBox.Size = New System.Drawing.Size(1000, 1000)
         Me.main_PictureBox.TabIndex = 13
         Me.main_PictureBox.TabStop = False
         '
@@ -129,7 +130,7 @@ Partial Class FormularzGłówny
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ClientSize = New System.Drawing.Size(1505, 1042)
+        Me.ClientSize = New System.Drawing.Size(1458, 1042)
         Me.Controls.Add(Me.main_PictureBox)
         Me.Controls.Add(Me.snow_PictureBox)
         Me.Controls.Add(Me.rain_PictureBox)
