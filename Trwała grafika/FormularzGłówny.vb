@@ -11,7 +11,9 @@ Public Class FormularzGłówny
     Dim map_layer_bmp As New Bitmap("polska2.jpg")
     Dim flake_layer_bmp As New Bitmap(16, 16, Imaging.PixelFormat.Format32bppArgb)
     Dim flake2_layer_bmp As New Bitmap(128, 128, Imaging.PixelFormat.Format32bppArgb)
-    Dim drop1_bmp As New Bitmap(100, 64, Imaging.PixelFormat.Format32bppArgb)
+    ' Dim drop1_bmp As New Bitmap(400, 400, Imaging.PixelFormat.Format32bppArgb)
+    Dim drop1_bmp As New Bitmap("drop1.png")
+    Dim sun1_bmp As New Bitmap("sun.png")
     Dim cloud1_bmp As New Bitmap(100,64, Imaging.PixelFormat.Format32bppArgb)
 
 
@@ -21,6 +23,7 @@ Public Class FormularzGłówny
         flake2_layer_bmp = CType(Image.FromFile("snow_flake2.png"), Bitmap)
         cloud1_bmp = CType(Image.FromFile("cloud1.png"), Bitmap)
 
+
         ' displayColor = sourceColor×alpha / 255 + backgroundColor×(255 – alpha) / 255 
         ' Add a 50% transparent red pixel over an opaque white pixel:
         ' sourceColor(127,255,0,0) ( Red, 50% transparent)
@@ -28,10 +31,9 @@ Public Class FormularzGłówny
 
         ' STEPS:
         ' 1.set back layer with map
-        PictureBox1.Image = cloud1_bmp
         For x As Integer = 0 To 999
             For y As Integer = 0 To 999
-                main_layer_bmp.SetPixel(CInt(x), CInt(y), Color.FromArgb(0, 255, 255, 255))
+                main_layer_bmp.SetPixel(CInt(x), CInt(y), Color.FromArgb(255, 255, 255, 255))
             Next
         Next
 
@@ -45,11 +47,16 @@ Public Class FormularzGłówny
         For i As UInteger = 50 To 250 Step 50
             DodajWarstwe(cloud1_bmp, i, i, i)
             DodajWarstwe(flake2_layer_bmp, i, CUInt(i + 380), CUInt(i + 10))
+            DodajWarstwe(drop1_bmp, i, CUInt(i), CUInt(i + 100))
+        Next
+
+        For i As UInteger = 50 To 250 Step 50
+            DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
         Next
 
         ' 4.display main layer in picture box
         main_PictureBox.Image = main_layer_bmp
-        map_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
+        main_layer_bmp.Save("layers.png", System.Drawing.Imaging.ImageFormat.Png)
 
     End Sub
 
@@ -64,8 +71,8 @@ Public Class FormularzGłówny
         Dim y As UInteger
 
         Try
-            For x = 0 To CUInt(ImageToAdd.Size.Height - 1)
-                For y = 0 To CUInt(ImageToAdd.Size.Width - 1)
+            For x = 0 To CUInt(ImageToAdd.Size.Width - 1)
+                For y = 0 To CUInt(ImageToAdd.Size.Height - 1)
                     backColor = main_layer_bmp.GetPixel(CInt(x + OffsetX), CInt(y + OffsetY))
                     sourceColor = ImageToAdd.GetPixel(CInt(x), CInt(y))
                     alpha = CByte((sourceColor.A * przezroczystosc) / 255)
