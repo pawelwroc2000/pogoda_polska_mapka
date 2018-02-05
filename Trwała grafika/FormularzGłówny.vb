@@ -4,25 +4,20 @@
 'oblusga grafiki w formie: ver.1.1 - BMP z pamieci kopiowana do picturebox na formie bez użycia graphics ale z kanalem alpha
 '#####################################################################################################################
 Public Class FormularzGłówny
-    ' utworz bitmape w pamieci
+    ' warstwy bitmap
     Dim main_layer_bmp As New Bitmap(1000, 1000, Imaging.PixelFormat.Format32bppArgb)
     Dim rain_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
     Dim snow_layer_bmp As New Bitmap(100, 100, Imaging.PixelFormat.Format32bppArgb)
     Dim map_layer_bmp As New Bitmap("polska2.jpg")
-    Dim flake_layer_bmp As New Bitmap(16, 16, Imaging.PixelFormat.Format32bppArgb)
-    Dim flake2_layer_bmp As New Bitmap(128, 128, Imaging.PixelFormat.Format32bppArgb)
-    ' Dim drop1_bmp As New Bitmap(400, 400, Imaging.PixelFormat.Format32bppArgb)
+    ' elementy grafiki
+    Dim flake_bmp As New Bitmap("snow_flake.png")
+    Dim flake2_bmp As New Bitmap("snow_flake2.png")
     Dim drop1_bmp As New Bitmap("drop1.png")
     Dim sun1_bmp As New Bitmap("sun.png")
-    Dim cloud1_bmp As New Bitmap(100,64, Imaging.PixelFormat.Format32bppArgb)
+    Dim cloud1_bmp As New Bitmap("cloud1.png")
 
 
     Private Sub FormularzGłówny_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        flake_layer_bmp = CType(Image.FromFile("snow_flake.png"), Bitmap)
-        flake2_layer_bmp = CType(Image.FromFile("snow_flake2.png"), Bitmap)
-        cloud1_bmp = CType(Image.FromFile("cloud1.png"), Bitmap)
-
 
         ' displayColor = sourceColor×alpha / 255 + backgroundColor×(255 – alpha) / 255 
         ' Add a 50% transparent red pixel over an opaque white pixel:
@@ -46,12 +41,13 @@ Public Class FormularzGłówny
         ' 3.mix both layer and set main layer
         For i As UInteger = 50 To 250 Step 50
             DodajWarstwe(cloud1_bmp, i, i, i)
-            DodajWarstwe(flake2_layer_bmp, i, CUInt(i + 380), CUInt(i + 10))
+            DodajWarstwe(flake2_bmp, i, CUInt(i + 380), CUInt(i + 10))
             DodajWarstwe(drop1_bmp, i, CUInt(i), CUInt(i + 100))
+            DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
         Next
 
         For i As UInteger = 50 To 250 Step 50
-            DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
+            ' DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
         Next
 
         ' 4.display main layer in picture box
