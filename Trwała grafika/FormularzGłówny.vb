@@ -15,6 +15,14 @@ Public Class FormularzGłówny
     Dim drop1_bmp As New Bitmap("drop1.png")
     Dim sun1_bmp As New Bitmap("sun.png")
     Dim cloud1_bmp As New Bitmap("cloud1.png")
+    Dim cloud2_bmp As New Bitmap("cloud2.png")
+    Dim cloud3_bmp As New Bitmap("cloud3.png")
+    Dim cloud4_bmp As New Bitmap("cloud4.png")
+    Dim snow1_bmp As New Bitmap("snow1.png")
+    Dim mostlycloudy_bmp As New Bitmap("mostlycloudy.png")
+    Dim nightrain_bmp As New Bitmap("nightrain.png")
+    Dim aaa_bmp As New Bitmap("aaa.png")
+    Dim bbb_bmp As New Bitmap("bbb.png")
 
 
     Private Sub FormularzGłówny_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -39,15 +47,15 @@ Public Class FormularzGłówny
         Next
 
         ' 3.mix both layer and set main layer
-        For i As UInteger = 50 To 250 Step 50
-            DodajWarstwe(cloud1_bmp, i, i, i)
-            DodajWarstwe(flake2_bmp, i, CUInt(i + 380), CUInt(i + 10))
-            DodajWarstwe(drop1_bmp, i, CUInt(i), CUInt(i + 100))
-            DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
+        For i As UInteger = 50 To 250 Step 100
+            DodajWarstwe(bbb_bmp, i, i, i)
+            'DodajWarstwe(flake2_bmp, i, CUInt(i + 380), CUInt(i + 10))
+            'DodajWarstwe(drop1_bmp, i, CUInt(i), CUInt(i + 100))
+            'DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
         Next
 
         For i As UInteger = 50 To 250 Step 50
-            ' DodajWarstwe(sun1_bmp, i, CUInt(i + 50), CUInt(i + 50))
+            'DodajWarstwe(cloud2_bmp, i, CUInt(i + 50), CUInt(i + 50))
         Next
 
         ' 4.display main layer in picture box
